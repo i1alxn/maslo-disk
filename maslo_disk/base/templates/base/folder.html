@@ -1,0 +1,71 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<main class="layout layout--3">
+    <div class="container">
+
+        {% include 'base/menu_component.html' %}
+        <div>
+            <div class="current-path">
+                {% for folder in filepath %}
+                <a href="{% url 'folder' folder.id %}" class="btn btn--link">{{folder.name}}/</a>
+                {% endfor %}
+            </div>
+            <div class="items">
+                <ul>
+                    {% for folder in folders %}
+                    <li>
+                        <a href="{% url 'folder' folder.id %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M21 8h-8.586l-2-2H3c-1.104 0-2 .896-2 2v12c0 1.104.896 2 2 2h18c1.104 0 2-.896 2-2V10c0-1.104-.896-2-2-2zm0 14H3V10h2.586l2 2H21v10zm-9-4H3v-2h9v2zm0-4H3V8h9v6z"/>
+                            </svg>
+                            {{folder.name}}
+                        </a>
+                        <button class="delete-button" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M18 6h-3V5c0-1.104-.896-2-2-2h-4c-1.104 0-2 .896-2 2v1H6c-1.104 0-2 .896-2 2v12c0 1.104.896 2 2 2h12c1.104 0 2-.896 2-2V8c0-1.104-.896-2-2-2zm-1 14H7v-10h10v10zm-8-6h2v4H9v-4zm4 0h2v4h-2v-4z"/>
+                            </svg>
+                        </button>
+                    </li>
+                    {% endfor %}
+                    {% for file in files %}
+                    <li>
+                        <a href="">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M12 2c-.3 0-.5.2-.5.5v6c0 .3.2.5.5.5h5.8L12 6.2 6.7 9.9h5.8c.3 0 .5-.2.5-.5v-6c0-.3-.2-.5-.5-.5z"/>
+                            </svg>
+                            {{file.file.name}}
+                        </a>
+                        <button class="delete-button" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M18 6h-3V5c0-1.104-.896-2-2-2h-4c-1.104 0-2 .896-2 2v1H6c-1.104 0-2 .896-2 2v12c0 1.104.896 2 2 2h12c1.104 0 2-.896 2-2V8c0-1.104-.896-2-2-2zm-1 14H7v-10h10v10zm-8-6h2v4H9v-4zm4 0h2v4h-2v-4z"/>
+                            </svg>
+                        </button>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="container">
+                <div class="roomList">
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% for file_field in file_form %}
+                        {{ file_field }}
+                        {% endfor %}
+                        <button class="btn btn--main" type="submit">Upload</button>
+                    </form>
+                </div>
+                <div class="roomList">
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% for folder_field in folder_form %}
+                        {{ folder_field }}
+                        {% endfor %}
+                        <button class="btn btn--main" type="submit">Upload</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
